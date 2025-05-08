@@ -14,6 +14,7 @@ interface DestinationCardProps {
 }
 
 export function DestinationCard({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   id,
   name,
   location,
