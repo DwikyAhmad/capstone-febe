@@ -1,15 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 export function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const scrollToTop = () => {
     console.log('Scrolling to top...');
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
+    setIsMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -29,12 +34,17 @@ export function Header() {
     } else {
       console.log('Element not found:', sectionId);
     }
+    setIsMobileMenuOpen(false); // Close mobile menu after navigation
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/75 border-b border-border shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="24"
@@ -50,8 +60,9 @@ export function Header() {
             <path d="M3 7h18M8 20h8M12 4v16M4 11l8-4 8 4" />
           </svg>
           <span className="text-lg font-bold text-primary">TravelJoy</span>
-        </div>
+        </Link>
         
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           <button 
             onClick={scrollToTop}
@@ -80,11 +91,64 @@ export function Header() {
         </nav>
         
         <div className="flex items-center gap-4">
+          {/* Desktop Login Button */}
           <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
             <Link href="/login">Masuk</Link>
           </Button>
+          
+          {/* Mobile Hamburger Menu Button */}
+          <button
+            onClick={toggleMobileMenu}
+            className="md:hidden p-2 rounded-md hover:bg-primary/10 transition-colors"
+            aria-label="Toggle mobile menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="h-6 w-6 text-foreground" />
+            ) : (
+              <Menu className="h-6 w-6 text-foreground" />
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden border-t border-border bg-background/95 backdrop-blur-md">
+          <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
+            <button 
+              onClick={scrollToTop}
+              className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-3 rounded-md hover:bg-primary/10 text-left"
+            >
+              Beranda
+            </button>
+            <button 
+              onClick={() => scrollToSection('kategori')}
+              className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-3 rounded-md hover:bg-primary/10 text-left"
+            >
+              Kategori
+            </button>
+            <button 
+              onClick={() => scrollToSection('destinasi')}
+              className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-3 rounded-md hover:bg-primary/10 text-left"
+            >
+              Destinasi
+            </button>
+            <button 
+              onClick={() => scrollToSection('tentang')}
+              className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-3 rounded-md hover:bg-primary/10 text-left"
+            >
+              Tentang Kami
+            </button>
+            
+            {/* Mobile Login Button */}
+            <div className="pt-4 border-t border-border">
+              <Button asChild variant="outline" size="sm" className="w-full">
+                <Link href="/login">Masuk</Link>
+              </Button>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
   );
 }
