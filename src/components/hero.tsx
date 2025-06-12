@@ -1,6 +1,28 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 
 export function Hero() {
+
+  const scrollToSection = (sectionId: string) => {
+    console.log('Scrolling to section:', sectionId);
+    const element = document.getElementById(sectionId);
+    const header = document.querySelector('header');
+    
+    if (element && header) {
+      const headerHeight = header.offsetHeight;
+      const elementPosition = element.offsetTop - headerHeight - 16; // Extra 16px padding
+      
+      console.log('Element found, scrolling to position:', elementPosition);
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
+    } else {
+      console.log('Element not found:', sectionId);
+    }
+  };
+  
   return (
     <div className="relative bg-primary/5 py-20">
       <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-10" />
@@ -16,7 +38,7 @@ export function Hero() {
           </p>
           
           <div className="flex justify-center gap-3 max-w-xl mx-auto">
-            <Button type="submit" size="default" className="w-full md:w-auto cursor-pointer">
+            <Button type="submit" size="default" className="w-full md:w-auto cursor-pointer" onClick={() => scrollToSection('kategori')}>
               Cari Destinasi Anda
             </Button>
           </div>
