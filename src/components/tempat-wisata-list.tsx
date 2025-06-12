@@ -27,15 +27,6 @@ export function TempatWisataList() {
         loadTempatWisata();
     }, []);
 
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('id-ID', {
-            style: 'currency',
-            currency: 'IDR',
-            minimumFractionDigits: 0,
-        }).format(price);
-    };
-
-
     const renderStars = (rating: number) => {
         const stars = [];
         const fullStars = Math.floor(rating);
@@ -141,36 +132,10 @@ export function TempatWisataList() {
                                     <span className="text-gray-500">• {item.city_x}</span>
                                 )}
                             </div>
-
-
-                        </div>
-
-                        {/* Footer */}
-                        <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-1">
-                                    <span className="text-lg font-bold text-green-600">
-                                        {formatPrice(item.price)}
-                                    </span>
-                                </div>
-                                <button className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors">
-                                    View Details
-                                </button>
-                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-            
-            {tempatWisata.length === 0 && (
-                <div className="text-center py-16">
-                    <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                        <MapPin className="h-12 w-12 text-gray-400" />
-                    </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No destinations found</h3>
-                    <p className="text-gray-500">No tempat wisata found in the collection.</p>
-                </div>
-            )}
         </div>
     );
 }

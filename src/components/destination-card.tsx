@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent} from "@/components/ui/card";
 
 interface DestinationCardProps {
   id: string;
@@ -9,7 +8,6 @@ interface DestinationCardProps {
   location: string;
   image: string;
   rating: number;
-  price: string;
   tags: string[];
 }
 
@@ -20,7 +18,6 @@ export function DestinationCard({
   location,
   image,
   rating,
-  price,
   tags,
 }: DestinationCardProps) {
   return (
@@ -59,12 +56,7 @@ export function DestinationCard({
           ))}
         </div>
       </CardContent>
-      <CardFooter className="flex items-center justify-between border-t p-4">
-        <div className="text-primary font-semibold">{price}</div>
-        <Button size="sm" variant="outline">
-          Detail
-        </Button>
-      </CardFooter>
     </Card>
   );
-} 
+}
+export default DestinationCard;
