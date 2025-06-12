@@ -1,124 +1,154 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-// Dummy data for interest options
-const categories = [
-  { id: "1", label: "Pantai & Laut" },
-  { id: "2", label: "Gunung & Pendakian" },
-  { id: "3", label: "Budaya & Tradisi" },
-  { id: "4", label: "Sejarah & Arsitektur" },
-  { id: "5", label: "Kuliner" },
-  { id: "6", label: "Alam & Pemandangan" },
-  { id: "7", label: "Petualangan" },
-  { id: "8", label: "Belanja & Kerajinan" },
-  { id: "9", label: "Agrowisata" },
-  { id: "10", label: "Wisata Religi" },
-  { id: "11", label: "Festival & Acara" },
-  { id: "12", label: "Fotografi" },
+const kategoriList = [
+  "Bahari",
+  "Budaya",
+  "Cagar Alam",
+  "Taman Hiburan",
+  "Pusat Perbelanjaan",
+  "Tempat Ibadah",
 ];
 
-export function PreferenceSection() {
-  const [budget, setBudget] = useState("");
-  const [duration, setDuration] = useState("");
-  const [interests, setInterests] = useState<string[]>([]);
-  
-  const toggleInterest = (id: string) => {
-    setInterests((current) => 
-      current.includes(id) 
-        ? current.filter((item) => item !== id)
-        : [...current, id]
-    );
+const PAGE_SIZE = 4;
+
+type Recommendation = {
+  Place_Name: string;
+  City_x: string;
+  Category: string;
+  Rating: number;
+};
+
+export default function PreferenceSection() {
+  const [selectedKategori, setSelectedKategori] = useState<string | null>(null);
+  const [results, setResults] = useState<Recommendation[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!selectedKategori) fetchAll();
+  }, [selectedKategori]);
+
+  const fetchAll = async () => {
+    setLoading(true);
+    try {
+      const responses = await Promise.all(
+        kategoriList.map((kat) =>
+          fetch("https://username123ml-traveljoy.hf.space/get_recommendations/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ category: kat }),
+          }).then((res) => res.json())
+        )
+      );
+      const allData = responses.flat();
+      setResults(allData);
+    } catch {
+      setError("Gagal mengambil data.");
+    } finally {
+      setLoading(false);
+    }
   };
-  
+
+  const fetchKategori = async (kategori: string) => {
+    if (selectedKategori === kategori) {
+      setSelectedKategori(null);
+      setCurrentPage(1);
+      return;
+    }
+
+    setSelectedKategori(kategori);
+    setCurrentPage(1);
+    setLoading(true);
+    try {
+      const res = await fetch("https://username123ml-traveljoy.hf.space/get_recommendations/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ category: kategori }),
+      });
+      const data = await res.json();
+      setResults(Array.isArray(data) ? data : []);
+      if (!data.length) setError("Tidak ada rekomendasi.");
+    } catch {
+      setError("Gagal mengambil data.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const paginated = results.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+  const totalPages = Math.ceil(results.length / PAGE_SIZE);
+
   return (
-    <section className="container mx-auto px-4 py-16">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold">Sesuaikan Preferensi Anda</h2>
-          <p className="text-muted-foreground mt-2">
-            Bantu kami memberikan rekomendasi yang paling relevan dengan minat dan preferensi Anda
-          </p>
-        </div>
-        
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Anggaran</h3>
-            <Select value={budget} onValueChange={setBudget}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Pilih anggaran" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="low">Ekonomis (&lt; Rp500.000)</SelectItem>
-                <SelectItem value="medium">Menengah (Rp500.000 - Rp1.500.000)</SelectItem>
-                <SelectItem value="high">Premium (&gt; Rp1.500.000)</SelectItem>
-                <SelectItem value="any">Tidak ada batasan</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Durasi</h3>
-            <Select value={duration} onValueChange={setDuration}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Pilih durasi perjalanan" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="day">1 Hari</SelectItem>
-                <SelectItem value="weekend">Akhir Pekan (2-3 hari)</SelectItem>
-                <SelectItem value="week">Mingguan (4-7 hari)</SelectItem>
-                <SelectItem value="longterm">Jangka Panjang (&gt; 1 minggu)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          
-          <div className="md:col-span-2 lg:col-span-1 space-y-4">
-            <h3 className="font-semibold text-lg">Dengan Siapa?</h3>
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Pilih teman perjalanan" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="solo">Sendiri</SelectItem>
-                <SelectItem value="couple">Pasangan</SelectItem>
-                <SelectItem value="friends">Teman</SelectItem>
-                <SelectItem value="family">Keluarga dengan Anak</SelectItem>
-                <SelectItem value="group">Grup Besar</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-        
-        <div className="mt-10">
-          <h3 className="font-semibold text-lg mb-4">Minat & Aktivitas</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {categories.map((category) => (
-              <div key={category.id} className="flex items-start space-x-2">
-                <Checkbox 
-                  id={`interest-${category.id}`} 
-                  checked={interests.includes(category.id)}
-                  onCheckedChange={() => toggleInterest(category.id)}
-                />
-                <label 
-                  htmlFor={`interest-${category.id}`}
-                  className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                >
-                  {category.label}
-                </label>
-              </div>
-            ))}
-          </div>
-        </div>
-        
-        <div className="mt-10 flex justify-center">
-          <Button size="lg" className="px-8">
-            Dapatkan Rekomendasi
+    <section className="container mx-auto px-4 py-10 max-w-4xl min-h-[900px]">
+      <h2 className="text-xl font-bold mb-4">Pilih Kategori</h2>
+
+      <div className="flex flex-wrap gap-2 mb-6">
+        {kategoriList.map((kat) => (
+          <Button
+            key={kat}
+            variant={selectedKategori === kat ? "default" : "outline"}
+            onClick={() => fetchKategori(kat)}
+          >
+            {kat}
           </Button>
-        </div>
+        ))}
+        <Button
+          variant={selectedKategori === null ? "default" : "outline"}
+          onClick={() => setSelectedKategori(null)}
+        >
+          Semua
+        </Button>
       </div>
+
+      {error && <p className="text-red-500 mb-4">{error}</p>}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {paginated.map((item, i) => (
+          <div key={i} className="rounded-lg shadow-md overflow-hidden border p-4">
+            <h3 className="font-semibold text-lg">{item.Place_Name}</h3>
+            <p>📍 Kota: <strong>{item.City_x}</strong></p>
+            <p>🏷️ Kategori: {item.Category}</p>
+            <p>🌟 Rating: {item.Rating}</p>
+          </div>
+        ))}
+      </div>
+
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1)
+            .filter((page) =>
+              page === 1 ||
+              page === totalPages ||
+              Math.abs(page - currentPage) <= 1
+            )
+            .reduce<number[]>((acc, page, index, arr) => {
+              if (index > 0 && page - arr[index - 1] > 1) {
+                acc.push(-1); 
+              }
+              acc.push(page);
+              return acc;
+            }, [])
+            .map((page, i) =>
+              page === -1 ? (
+                <span key={`ellipsis-${i}`} className="px-2">
+                  ...
+                </span>
+              ) : (
+                <Button
+                  key={page}
+                  variant={page === currentPage ? "default" : "outline"}
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </Button>
+              )
+            )}
+        </div>
+      )}
     </section>
   );
-} 
+}
