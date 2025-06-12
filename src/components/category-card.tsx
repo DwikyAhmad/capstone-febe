@@ -3,10 +3,9 @@ import { Card, CardContent } from "@/components/ui/card";
 interface CategoryCardProps {
   icon: React.ReactNode;
   name: string;
-  count: number;
 }
 
-export function CategoryCard({ icon, name, count }: CategoryCardProps) {
+export function CategoryCard({ icon, name}: CategoryCardProps) {
   return (
     <Card className="hover:border-primary/50 transition-colors cursor-pointer">
       <CardContent className="flex items-center gap-4 p-4">
@@ -15,7 +14,6 @@ export function CategoryCard({ icon, name, count }: CategoryCardProps) {
         </div>
         <div>
           <h3 className="font-medium">{name}</h3>
-          <p className="text-sm text-muted-foreground">{count} destinasi</p>
         </div>
       </CardContent>
     </Card>

@@ -1,9 +1,10 @@
 import { Header } from "@/components/header";
 import { Hero } from "@/components/hero";
 import { CategoriesSection } from "@/components/categories-section";
-import { RecommendationSection } from "@/components/recommendation-section";
-import { PreferenceSection } from "@/components/preference-section";
+import { AboutSection } from "@/components/about-section";
+// import { PreferenceSection } from "@/components/preference-section";
 import { Footer } from "@/components/footer";
+import { TempatWisataList } from "@/components/tempat-wisata-list";
 
 export default function Home() {
   return (
@@ -11,8 +12,9 @@ export default function Home() {
       <Header />
       <Hero />
       <CategoriesSection />
-      <RecommendationSection />
-      <PreferenceSection />
+      <TempatWisataList />
+      <AboutSection />
+      {/* <PreferenceSection /> */}
       <Footer />
     </main>
   );
