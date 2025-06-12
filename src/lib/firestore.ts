@@ -21,7 +21,7 @@ export interface TempatWisata {
 export const fetchTempatWisata = async (): Promise<TempatWisata[]> => {
     try {
         // Create a query to get 10 items from tempat_wisata collection
-        const q = query(collection(db, "tempat_wisata"), limit(10));
+        const q = query(collection(db, "tempat_wisata"), limit(9));
         const querySnapshot = await getDocs(q);
 
 

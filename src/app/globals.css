@@ -128,7 +128,8 @@
   
   /* Scroll margin for sections with sticky navbar */
   #kategori,
-  #destinasi {
+  #destinasi,
+  #tentang {
     scroll-margin-top: 5rem;
   }
 }

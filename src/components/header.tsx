@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export function Header() {
   const scrollToTop = () => {
+    console.log('Scrolling to top...');
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -12,6 +13,7 @@ export function Header() {
   };
 
   const scrollToSection = (sectionId: string) => {
+    console.log('Scrolling to section:', sectionId);
     const element = document.getElementById(sectionId);
     const header = document.querySelector('header');
     
@@ -19,10 +21,13 @@ export function Header() {
       const headerHeight = header.offsetHeight;
       const elementPosition = element.offsetTop - headerHeight - 16; // Extra 16px padding
       
+      console.log('Element found, scrolling to position:', elementPosition);
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
       });
+    } else {
+      console.log('Element not found:', sectionId);
     }
   };
 
@@ -50,25 +55,28 @@ export function Header() {
         <nav className="hidden md:flex items-center space-x-6">
           <button 
             onClick={scrollToTop}
-            className="text-foreground hover:text-primary transition-colors cursor-pointer"
+            className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-2 rounded-md hover:bg-primary/10"
           >
             Beranda
           </button>
           <button 
             onClick={() => scrollToSection('kategori')}
-            className="text-foreground hover:text-primary transition-colors cursor-pointer"
+            className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-2 rounded-md hover:bg-primary/10"
           >
             Kategori
           </button>
           <button 
             onClick={() => scrollToSection('destinasi')}
-            className="text-foreground hover:text-primary transition-colors cursor-pointer"
+            className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-2 rounded-md hover:bg-primary/10"
           >
             Destinasi
           </button>
-          <Link href="/tentang" className="text-foreground hover:text-primary transition-colors">
+          <button 
+            onClick={() => scrollToSection('tentang')}
+            className="text-foreground hover:text-primary transition-colors cursor-pointer px-3 py-2 rounded-md hover:bg-primary/10"
+          >
             Tentang Kami
-          </Link>
+          </button>
         </nav>
         
         <div className="flex items-center gap-4">
