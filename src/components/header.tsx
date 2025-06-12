@@ -39,12 +39,11 @@ export function Header() {
         </nav>
         
         <div className="flex items-center gap-4">
-          <Button variant="outline" size="sm" className="hidden md:inline-flex">
-            Masuk
+          <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
+            <Link href="/login">Masuk</Link>
           </Button>
-          <Button size="sm">Daftar</Button>
         </div>
       </div>
     </header>
   );
-} 
+}
