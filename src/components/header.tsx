@@ -1,9 +1,33 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 export function Header() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    const header = document.querySelector('header');
+    
+    if (element && header) {
+      const headerHeight = header.offsetHeight;
+      const elementPosition = element.offsetTop - headerHeight - 16; // Extra 16px padding
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <header className="bg-background border-b border-border">
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-md supports-[backdrop-filter]:bg-background/75 border-b border-border shadow-sm">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <div className="flex items-center gap-2">
           <svg
@@ -24,15 +48,24 @@ export function Header() {
         </div>
         
         <nav className="hidden md:flex items-center space-x-6">
-          <Link href="/" className="text-foreground hover:text-primary transition-colors">
+          <button 
+            onClick={scrollToTop}
+            className="text-foreground hover:text-primary transition-colors cursor-pointer"
+          >
             Beranda
-          </Link>
-          <Link href="/kategori" className="text-foreground hover:text-primary transition-colors">
+          </button>
+          <button 
+            onClick={() => scrollToSection('kategori')}
+            className="text-foreground hover:text-primary transition-colors cursor-pointer"
+          >
             Kategori
-          </Link>
-          <Link href="/destinasi" className="text-foreground hover:text-primary transition-colors">
+          </button>
+          <button 
+            onClick={() => scrollToSection('destinasi')}
+            className="text-foreground hover:text-primary transition-colors cursor-pointer"
+          >
             Destinasi
-          </Link>
+          </button>
           <Link href="/tentang" className="text-foreground hover:text-primary transition-colors">
             Tentang Kami
           </Link>

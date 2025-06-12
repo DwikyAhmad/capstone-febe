@@ -37,7 +37,7 @@ const categories = [
 
 export function CategoriesSection() {
   return (
-    <section className="bg-primary/5 py-10">
+    <section id="kategori" className="bg-primary/5 py-10">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold">Jelajahi Kategori</h2>

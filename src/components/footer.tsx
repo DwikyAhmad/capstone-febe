@@ -4,7 +4,7 @@ export function Footer() {
     return (
         <footer className="bg-primary/5 border-t border-border">
             <div className="container mx-auto px-4 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-24">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-24">
                     <div>
                         <div className="flex items-center gap-2 mb-4">
                             <svg
@@ -41,15 +41,7 @@ export function Footer() {
                                     href="#"
                                     className="text-muted-foreground hover:text-primary"
                                 >
-                                    Pantai
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-muted-foreground hover:text-primary"
-                                >
-                                    Gunung
+                                    Bahari
                                 </Link>
                             </li>
                             <li>
@@ -65,7 +57,7 @@ export function Footer() {
                                     href="#"
                                     className="text-muted-foreground hover:text-primary"
                                 >
-                                    Kuliner
+                                    Cagar Alam
                                 </Link>
                             </li>
                             <li>
@@ -73,7 +65,7 @@ export function Footer() {
                                     href="#"
                                     className="text-muted-foreground hover:text-primary"
                                 >
-                                    Sejarah
+                                    Taman Hiburan
                                 </Link>
                             </li>
                             <li>
@@ -81,59 +73,20 @@ export function Footer() {
                                     href="#"
                                     className="text-muted-foreground hover:text-primary"
                                 >
-                                    Petualangan
+                                    Pusat Perbelanjaan
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="#"
+                                    className="text-muted-foreground hover:text-primary"
+                                >
+                                    Tempat Ibadah
                                 </Link>
                             </li>
                         </ul>
                     </div>
 
-                    <div>
-                        <h3 className="font-semibold text-lg mb-4">
-                            Bantuan & Dukungan
-                        </h3>
-                        <ul className="space-y-2 text-sm">
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-muted-foreground hover:text-primary"
-                                >
-                                    Tentang Kami
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-muted-foreground hover:text-primary"
-                                >
-                                    Kontak
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-muted-foreground hover:text-primary"
-                                >
-                                    FAQ
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-muted-foreground hover:text-primary"
-                                >
-                                    Kebijakan Privasi
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="#"
-                                    className="text-muted-foreground hover:text-primary"
-                                >
-                                    Syarat & Ketentuan
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
 
                 <div className="border-t border-border mt-12 pt-6 text-center text-sm text-muted-foreground">
