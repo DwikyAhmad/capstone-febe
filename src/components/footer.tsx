@@ -38,7 +38,7 @@ export function Footer() {
                         <ul className="space-y-2 text-sm">
                             <li>
                                 <Link
-                                    href="#"
+                                    href="/category/Bahari"
                                     className="text-muted-foreground hover:text-primary"
                                 >
                                     Bahari
@@ -46,7 +46,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="#"
+                                    href="/category/Budaya"
                                     className="text-muted-foreground hover:text-primary"
                                 >
                                     Budaya
@@ -54,7 +54,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="#"
+                                    href="/category/Cagar Alam"
                                     className="text-muted-foreground hover:text-primary"
                                 >
                                     Cagar Alam
@@ -62,7 +62,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="#"
+                                    href="/category/Taman Hiburan"
                                     className="text-muted-foreground hover:text-primary"
                                 >
                                     Taman Hiburan
@@ -70,7 +70,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="#"
+                                    href="/category/Pusat Perbelanjaan"
                                     className="text-muted-foreground hover:text-primary"
                                 >
                                     Pusat Perbelanjaan
@@ -78,7 +78,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link
-                                    href="#"
+                                    href="/category/Tempat Ibadah"
                                     className="text-muted-foreground hover:text-primary"
                                 >
                                     Tempat Ibadah
