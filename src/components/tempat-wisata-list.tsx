@@ -92,10 +92,10 @@ export function TempatWisataList() {
     }
 
     return (
-        <div className="max-w-7xl mx-auto p-6">
+        <div className="max-w-7xl mx-auto p-6 my-8">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">Tempat Wisata Indonesia</h1>
-                <p className="text-gray-600">Discover amazing destinations across Indonesia</p>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Rekomendasi Destinasi</h1>
+                <p className="text-gray-600">Temukan destinasi populer dan sesuai dengan preferensi Anda</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">

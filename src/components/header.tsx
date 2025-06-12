@@ -27,11 +27,11 @@ export function Header() {
           <Link href="/" className="text-foreground hover:text-primary transition-colors">
             Beranda
           </Link>
-          <Link href="/destinasi" className="text-foreground hover:text-primary transition-colors">
-            Destinasi
-          </Link>
           <Link href="/kategori" className="text-foreground hover:text-primary transition-colors">
             Kategori
+          </Link>
+          <Link href="/destinasi" className="text-foreground hover:text-primary transition-colors">
+            Destinasi
           </Link>
           <Link href="/tentang" className="text-foreground hover:text-primary transition-colors">
             Tentang Kami

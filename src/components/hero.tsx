@@ -7,7 +7,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-[url('/hero-pattern.svg')] opacity-10" />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4 leading-14">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4 lg:leading-14">
             Tempat Liburan Sesuai dengan{" "}
             <span className="text-primary">Minat </span> Anda
           </h1>
