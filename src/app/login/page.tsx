@@ -43,7 +43,7 @@ export default function AuthPage() {
         await createUserWithEmailAndPassword(auth, email, password);
         setIsLogin(true);
       }
-    } catch (error: any) {
+    } catch {
       if (isLogin) {
         setErrorMessage('Password anda salah atau tidak ada akun terdaftar');
       } else {
